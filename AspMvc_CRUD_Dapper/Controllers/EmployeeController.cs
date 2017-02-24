@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AspMvc_CRUD_Dapper.Models;
+using AspMvc_CRUD_Dapper.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,27 +16,55 @@ namespace AspMvc_CRUD_Dapper.Controllers
             return View();
         }
 
-        // GET: Employee/Details/5
-        public ActionResult Details(int id)
+        //GET : Employee/GetAllEmpDetails
+        public ActionResult GetAllEmpDetails()
+        {
+            EmpRepository EmpRepo = new EmpRepository();
+            return View(EmpRepo.GetAllEmployee());
+        }
+
+        //GET : Employee/AddEmployee
+        public ActionResult AddEmployee()
         {
             return View();
         }
 
-        // GET: Employee/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Employee/Create
+        //POSt : Employee/AddEmployee
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult AddEmployee(EmpModel Emp)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    EmpRepository EmpRepo = new EmpRepository();
+                    EmpRepo.AddEmployee(Emp);
+                    ViewBag.Message = "Record added successfully";
+                }
+                return View();
+            }
+            catch 
+            {
+                return View();
+            }
+        }
 
-                return RedirectToAction("Index");
+        //GET: Bind control to Update details
+        public ActionResult EditEmpDetails(int id)
+        {
+            EmpRepository EmpRepo = new EmpRepository();
+            return View(EmpRepo.GetAllEmployee().Find(Emp => Emp.Empid == id));
+        }
+
+        //POST : Update the details into database
+        [HttpPost]
+        public ActionResult EditEmpDetails(int id ,EmpModel obj)
+        {
+            try
+            {
+                EmpRepository EmpRepo = new EmpRepository();
+                EmpRepo.UpdateEmployee(obj);
+                return RedirectToAction("GetAllEmpDetails");
             }
             catch
             {
@@ -42,45 +72,19 @@ namespace AspMvc_CRUD_Dapper.Controllers
             }
         }
 
-        // GET: Employee/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Employee/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        //GET : Delete Employee details by Id
+        public ActionResult DeleteEmp(int id)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                EmpRepository EmpRepo = new EmpRepository();
+                if (EmpRepo.DeleteEmployee(id))
+                {
+                    ViewBag.AlertMsg = "Employee details deleted successfuly";
+                }
+                return RedirectToAction("GetAllEmpDetails");
             }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Employee/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Employee/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
+            catch 
             {
                 return View();
             }
