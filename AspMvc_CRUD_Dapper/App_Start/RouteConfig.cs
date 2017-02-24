@@ -16,7 +16,7 @@ namespace AspMvc_CRUD_Dapper
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Employee", action = "AddEmplyee", id = UrlParameter.Optional }
             );
         }
     }
