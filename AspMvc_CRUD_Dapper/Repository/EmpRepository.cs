@@ -17,6 +17,7 @@ namespace AspMvc_CRUD_Dapper.Repository
         private void connection()
         {
             string constr = ConfigurationManager.ConnectionStrings["SqlConn"].ToString();
+            string constr2 = System.Configuration.ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString;
             con = new SqlConnection(constr);
         }
         //To Add Employee details
