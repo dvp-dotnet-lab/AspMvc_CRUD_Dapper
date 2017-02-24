@@ -10,12 +10,13 @@ Create procedure [dbo].[AddNewEmpDetails]
 (
 @Name varchar (50),
 @City varchar (50),
-@Address varchar (50)
+@Address varchar (50),
+@EmpId int
 )
 as
 begin
 Insert into Employee values(@Name,@City,@Address)
-End 
+End
 -- View Data
 Create procedure [dbo].[GetEmployee]
 as
@@ -30,7 +31,7 @@ create procedure [dbo].[UpdateEmpDetails]
 @City varchar(50),
 @Address varchar(50)
 )
-as 
+as
 begin
 Update Employee
 set Name = @Name, City = @City, Address = @Address where Id = @EmpId
@@ -38,9 +39,9 @@ End;
 -- Delete Data
 create procedure [dbo].[DeleteEmpById]
 (
-@EmpId int 
+@EmpId int
 )
-as 
+as
 begin
 Delete from Employee where Id = @EmpId
 end;
