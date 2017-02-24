@@ -28,7 +28,7 @@ namespace AspMvc_CRUD_Dapper.Repository
                 con.Open();
                 con.Execute("AddNewEmpDetails", objEmp, commandType: CommandType.StoredProcedure);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -43,7 +43,7 @@ namespace AspMvc_CRUD_Dapper.Repository
                         con, "GetEmployee").ToList();
                 con.Close();
                 return EmpList.ToList();
-                
+
             }
             catch (Exception)
             {
@@ -84,6 +84,6 @@ namespace AspMvc_CRUD_Dapper.Repository
                 //Log error as per your need
                 throw ex;
             }
-
+        }
     }
 }
